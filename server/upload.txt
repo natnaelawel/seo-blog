@@ -1,0 +1,44 @@
+npm install multer express morgan --save
+
+const multer = require('multer');
+
+const storage = multer.diskStorage({
+  destination: function(req, file, callback) {
+    callback(null, '/src/my-images');
+  },
+  filename: function (req, file, callback) {
+    callback(null, file.fieldname);
+  }
+});
+
+
+import morgan from 'morgan';
+import express from 'express';
+const app = express();
+const multer = require('multer');
+const upload = multer({dest: 'uploads/'});
+
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
+app.use(morgan('dev'));
+
+app.use(express.static(__dirname, 'public'));
+
+
+app.post('/', upload.single('file'), (req, res) => {
+  if (!req.file) {
+    console.log("No file received");
+    return res.send({
+      success: false
+    });
+
+  } else {
+    console.log('file received');
+    return res.send({
+      success: true
+    })
+  }
+});
+
+const host = req.host;
+const filePath = req.protocol + "://" + host + '/' + req.file.path;
