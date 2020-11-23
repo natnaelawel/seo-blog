@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { authenticate, signIn } from "../../api/auth";
+import { authenticate, signIn } from "../../actions/auth";
 import classnames from 'classnames'
 import { useRouter } from "next/router";
 

@@ -2,6 +2,7 @@ import "../styles/index.css";
 import { AppProps } from "next/app";
 import { useEffect } from "react";
 import { AuthProvider } from "../context/auth";
+import { Head } from "next/head";
 
 export default function App({ Component, pageProps }: AppProps) {
   useEffect(() => {
@@ -27,7 +28,10 @@ export default function App({ Component, pageProps }: AppProps) {
   }, []);
   return (
     <AuthProvider>
+      <>
+     
       <Component {...pageProps} />
+      </>
     </AuthProvider>
   );
 }

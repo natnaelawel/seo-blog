@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import classnames from "classnames";
-import { signUp } from "../../api/auth";
+import { signUp } from "../../actions/auth";
 import Link from "next/link";
 function SignUp() {
   const [name, setName] = useState("");

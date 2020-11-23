@@ -63,9 +63,9 @@ export const getUser = () => {
   const getUser = async (token) => {
     try {
       const { data } = await axios.get("/user/profile", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        // headers: {
+        //   Authorization: `Bearer ${token}`,
+        // },
       });
       return data.user;
     } catch (error) {

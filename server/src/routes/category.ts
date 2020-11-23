@@ -4,14 +4,16 @@ import {
   authMiddleware,
   requireSignIn,
 } from "../middlewares/auth";
-import { getCategories, createCategory } from "../controllers/category";
+import { getCategories, createCategory, getCategory, deleteCategory } from "../controllers/category";
 import { runValidation } from "../validators";
 import { createCategoryValidator } from "../validators/category";
 
-const routes = express.Router();
+const router = express.Router();
 
-routes.get("/", requireSignIn, authMiddleware, getCategories);
-routes.post(
+router.get("/", getCategories);
+router.get("/:slug", getCategory);
+router.delete("/:slug", requireSignIn, adminMiddleware, deleteCategory);
+router.post(
   "/",
   createCategoryValidator,
   runValidation,
@@ -20,4 +22,4 @@ routes.post(
   createCategory
 );
 
-export default routes;
+export default router;

@@ -3,7 +3,7 @@ import { useState } from "react";
 import Link from "next/link";
 
 import classnames from "classnames";
-import { isAuthenticated, signOut } from "../api/auth";
+import { isAuthenticated, signOut } from "../actions/auth";
 import { useRouter } from "next/router";
 import { useAuth } from "../context/auth";
 

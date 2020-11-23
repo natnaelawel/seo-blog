@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import NavBar from "../../components/NavBar";
 import { useAuth } from "../../context/auth";
 import Router from "next/router";
-import { isAdmin, isAuthenticated } from "../../api/auth";
+import { isAdmin, isAuthenticated } from "../../actions/auth";
 
 function index({ children }) {
   const { user } = useAuth();

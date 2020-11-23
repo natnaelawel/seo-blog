@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { getUser, isAdmin, isAuthenticated } from "../api/auth";
+import { getUser, isAdmin, isAuthenticated } from "../actions/auth";
 const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
