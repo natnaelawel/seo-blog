@@ -1,3 +1,4 @@
+import Head from "next/head";
 import NavBar from "../components/NavBar";
 
 export default function Home() {
@@ -5,6 +6,9 @@ export default function Home() {
 
   return (
     <div className="dark:text-white mx-auto">
+      <Head>
+        <title>Home</title>
+      </Head>
       <NavBar/>
       <h1 className="dark:text-white text-yellow-500">Hello world</h1>
     </div>

@@ -52,7 +52,7 @@ const blogSchema: Schema<IBlog> = new mongoose.Schema<IBlog>(
         type: [{type: objectId, ref: 'Category', required: true}]
     }, 
     tags: {
-        type: [{type: objectId, ref: 'Category', required: true}]
+        type: [{type: objectId, ref: 'Tag', required: true}]
     }, 
     posted_by:{
         type: objectId, 

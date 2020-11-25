@@ -2,7 +2,7 @@ import "../styles/index.css";
 import { AppProps } from "next/app";
 import { useEffect } from "react";
 import { AuthProvider } from "../context/auth";
-import { Head } from "next/head";
+import "react-quill/dist/quill.snow.css"
 
 export default function App({ Component, pageProps }: AppProps) {
   useEffect(() => {

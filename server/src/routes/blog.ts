@@ -5,6 +5,7 @@ import {
   getBlog,
   deleteBlog,
   updateBlog,
+  loadMoreBlogs
 } from "../controllers/blog";
 import {
   adminMiddleware,
@@ -21,12 +22,25 @@ router.get("/:slug", getBlog);
 router.get("/", getBlogs);
 router.post(
   "/",
-  requireMulterFileUpload.single("file"),
   requireSignIn,
   adminMiddleware,
+  requireMulterFileUpload.single("file"),
   createBlog
 );
-router.put("/:slug", requireSignIn, adminMiddleware, updateBlog);
+
+router.post(
+  "/blogs-categories-tags",
+  // requireSignIn,
+  // adminMiddleware,
+  loadMoreBlogs
+);
+router.put(
+  "/:slug",
+  requireSignIn,
+  adminMiddleware,
+  requireMulterFileUpload.single("file"),
+  updateBlog
+);
 router.delete("/:slug", requireSignIn, adminMiddleware, deleteBlog);
 
 export default router;

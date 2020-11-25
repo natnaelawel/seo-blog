@@ -94,9 +94,11 @@ function NavBar() {
             </div>
             <div className="hidden sm:block sm:ml-6">
               <div className="flex space-x-4">
-                <a className="px-3 py-2 rounded-md text-sm font-medium text-white bg-gray-900">
-                  Blogs
-                </a>
+                <Link href="/blogs">
+                  <a className="px-3 py-2 rounded-md text-sm font-medium text-white bg-gray-900">
+                    Blogs
+                  </a>
+                </Link>
                 {user && (
                   <Link href={user.role === "admin" ? "/admin" : "/user"}>
                     <a className="px-3 py-2 rounded-md text-sm font-medium text-white">
@@ -104,10 +106,11 @@ function NavBar() {
                     </a>
                   </Link>
                 )}
-
-                <a className="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-700">
-                  Contact
-                </a>
+                <Link href="">
+                  <a className="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-700">
+                    Contact
+                  </a>
+                </Link>
                 {!isAuthenticated() && (
                   <>
                     <Link href="/signin">
@@ -167,25 +170,31 @@ function NavBar() {
                     aria-orientation="vertical"
                     aria-labelledby="user-menu"
                   >
-                    <a
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                      role="menuitem"
-                    >
-                      Your Profile
-                    </a>
-                    <a
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                      role="menuitem"
-                    >
-                      Settings
-                    </a>
-                    <a
-                      onClick={handleSignOut}
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                      role="menuitem"
-                    >
-                      Sign out
-                    </a>
+                    <Link href="">
+                      <a
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        role="menuitem"
+                      >
+                        Your Profile
+                      </a>
+                    </Link>
+                    <Link href="">
+                      <a
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        role="menuitem"
+                      >
+                        Settings
+                      </a>
+                    </Link>
+                    <Link href="">
+                      <a
+                        onClick={handleSignOut}
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        role="menuitem"
+                      >
+                        Sign out
+                      </a>
+                    </Link>
                   </div>
                 </div>
               </>
@@ -195,18 +204,26 @@ function NavBar() {
       </div>
       <div className="hidden sm:hidden">
         <div className="px-2 pt-2 pb-3 space-y-1">
-          <a className="block px-3 py-2 rounded-md text-base font-medium text-white bg-gray-900">
-            Blog
-          </a>
-          <a className="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700">
-            Contact
-          </a>
-          <a className="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700">
-            Sign In
-          </a>
-          <a className="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700">
-            Sign Out
-          </a>
+          <Link href="/blogs">
+            <a className="block px-3 py-2 rounded-md text-base font-medium text-white bg-gray-900">
+              Blog
+            </a>
+          </Link>
+          <Link href="">
+            <a className="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700">
+              Contact
+            </a>
+          </Link>
+          <Link href="">
+            <a className="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700">
+              Sign In
+            </a>
+          </Link>
+          <Link href="">
+            <a className="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700">
+              Sign Out
+            </a>
+          </Link>
         </div>
       </div>
     </nav>

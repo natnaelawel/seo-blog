@@ -20,10 +20,10 @@ class MyDocument extends Document {
           <meta name="description" content="Next js exercise" />
           <meta name="keywords" content="next js seo blog with tailwindcss" />
           <meta name="author" content="Nathaniel Hussein" />
-          <link
+          {/* <link
             rel="stylesheet"
             href="//cdn.quilljs.com/1.2.6/quill.snow.css"
-          />
+          /> */}
         </Head>
         <body className="bg-white dark:bg-gray-800">
           <Main />

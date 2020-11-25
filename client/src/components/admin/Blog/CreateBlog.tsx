@@ -7,12 +7,11 @@ import {
 } from "../../../actions/category";
 import { createBlog } from "../../../actions/blog";
 import dynamic from "next/dynamic";
-import Image from "next/image";
 import { useRef } from "react";
-import { promisify } from "util";
 import { getTags } from "../../../actions/tag";
 //  import ReactQuill from "react-quill"; // Typescript
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
+import {formats, modules} from '../../../helpers/quill';
 function CreateBlog() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -147,46 +146,53 @@ function CreateBlog() {
       )}
       <form
         onSubmit={handleSubmit}
-        className="justify-center flex space-y-6 space-x-10 container mx-auto"
+        className="justify-center flex space-x-10 container mx-auto min-h-screen py-4"
       >
-        <div className="sm:w-2/3 lg:w-2/3 mx-auto py-4">
-          <div className="left_form">
-            <input
-              className="focus:border-light-blue-500 focus:ring-1 focus:ring-light-blue-500 focus:outline-none w-full text-lg text-black placeholder-gray-500 border border-gray-200 rounded-md py-3 pl-10"
-              type="text"
-              aria-label="Title"
-              placeholder="Enter Title"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-            />
-            <ReactQuill
-              className="h-52 my-3"
-              placeholder="Write something here... "
-              modules={CreateBlog.modules}
-              formats={CreateBlog.formats}
-              style={{}}
-              value={body}
-              onChange={handleBody}
-            />
-            <button
-              type="submit"
-              className={classnames(
-                "my-4 outline-none focus:outline-none shadow-md py-4 text-2xl font-bold bg-green-400 text-white rounded-lg hover:bg-green-600 flex justify-center items-center",
-                loading && "disabled cursor-not-allowed"
-              )}
-            >
-              {loading && (
-                <div
-                  className={classnames(
-                    "rounded-full w-7 h-7 mx-2",
-                    loading && "loader"
-                  )}
-                ></div>
-              )}
-              Create
-            </button>
+        <div className="left_form sm:w-2/3 lg:w-2/3 mx-auto space-y-4">
+          <div className="flex flex-col justify-around py-5 ">
+            <div>
+              <input
+                className="focus:border-light-blue-500 focus:ring-1 focus:ring-light-blue-500 focus:outline-none w-full text-lg text-black placeholder-gray-500 border border-gray-200 rounded-md py-3"
+                type="text"
+                aria-label="Title"
+                placeholder="Enter Title"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+              />
+            </div>
+            <div className="object-contain py-5">
+              <ReactQuill
+                className="min-h-full h-56 my-5"
+                placeholder="Write something here... "
+                modules={modules}
+                formats={formats}
+                style={{}}
+                value={body}
+                onChange={handleBody}
+              />
+            </div>
           </div>
+        <div className="my-4 py-5">
+        <button
+            type="submit"
+            className={classnames(
+              "px-8 outline-none focus:outline-none shadow-md py-4 text-2xl font-bold bg-green-400 text-white rounded-lg hover:bg-green-600 flex justify-center items-center",
+              loading && "disabled cursor-not-allowed"
+            )}
+          >
+            {loading && (
+              <div
+                className={classnames(
+                  "rounded-full w-7 h-7 mx-2",
+                  loading && "loader"
+                )}
+              ></div>
+            )}
+            Create
+          </button>
         </div>
+        </div>
+
         <div className="sm:w-1/4">
           <div className="relative cursor-pointer border-2 rounded-lg border-gray-200 px-4 py-3 flex flex-col justify-center">
             {image.raw && (
@@ -264,33 +270,6 @@ function CreateBlog() {
   );
 }
 
-CreateBlog.modules = {
-  toolbar: [
-    [{ header: "1" }, { header: "2" }, { header: [3, 4, 5, 6] }, { font: [] }],
-    [{ size: [] }],
-    ["bold", "italic", "underline", "strike", "blockquote"],
-    [{ list: "ordered" }, { list: "bullet" }],
-    ["link", "image", "video"],
-    ["clean"],
-    ["code-block"],
-  ],
-};
 
-CreateBlog.formats = [
-  "header",
-  "font",
-  "size",
-  "bold",
-  "italic",
-  "underline",
-  "strike",
-  "blockquote",
-  "list",
-  "bullet",
-  "link",
-  "image",
-  "video",
-  "code-block",
-];
 
 export default CreateBlog;
