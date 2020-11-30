@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import NavBar from "../../components/NavBar";
+import NavBar from "../NavBar/NavBar";
 import { useAuth } from "../../context/auth";
 import Router from "next/router";
 import { isAdmin, isAuthenticated } from "../../actions/auth";

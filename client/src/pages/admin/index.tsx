@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import NavBar from "../../components/NavBar";
+import NavBar from "../../components/NavBar/NavBar";
 import AdminRoute from "../../components/auth/AdminRoute"
 import { useAuth } from "../../context/auth";
 import SideBar from "../../components/admin/SideBar";

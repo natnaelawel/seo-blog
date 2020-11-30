@@ -3,6 +3,15 @@ import { AppProps } from "next/app";
 import { useEffect } from "react";
 import { AuthProvider } from "../context/auth";
 import "react-quill/dist/quill.snow.css"
+import "nprogress/nprogress.css";
+import dynamic from "next/dynamic";
+
+const TopProgressBar = dynamic(
+  () => {
+    return import("../components/TopProgressbar");
+  },
+  { ssr: false },
+);
 
 export default function App({ Component, pageProps }: AppProps) {
   useEffect(() => {
@@ -29,7 +38,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <AuthProvider>
       <>
-     
+      <TopProgressBar/>
       <Component {...pageProps} />
       </>
     </AuthProvider>

@@ -5,7 +5,8 @@ import {
   getBlog,
   deleteBlog,
   updateBlog,
-  loadMoreBlogs
+  loadMoreBlogs,
+  getRelatedBlogs
 } from "../controllers/blog";
 import {
   adminMiddleware,
@@ -19,7 +20,9 @@ import { createBlogValidator } from "../validators/blog";
 const router = express.Router();
 
 router.get("/:slug", getBlog);
+
 router.get("/", getBlogs);
+
 router.post(
   "/",
   requireSignIn,
@@ -34,6 +37,7 @@ router.post(
   // adminMiddleware,
   loadMoreBlogs
 );
+
 router.put(
   "/:slug",
   requireSignIn,
@@ -41,8 +45,10 @@ router.put(
   requireMulterFileUpload.single("file"),
   updateBlog
 );
+
 router.delete("/:slug", requireSignIn, adminMiddleware, deleteBlog);
 
+router.get('/:slug/related', getRelatedBlogs )
 export default router;
 
 // "dev": "nodemon --watch 'src/**/*.ts' --exec ts-node index.ts"

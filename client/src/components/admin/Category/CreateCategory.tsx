@@ -5,12 +5,12 @@ import {
   deleteCategory,
   getCategories,
 } from "../../../actions/category";
-function CreateCategory() {
+function CreateCategory({mode}) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   const [categories, setCategories] = useState([]);
-  const [isEditing, setIsEditing] = useState(false);
+  const [isEditing, setIsEditing] = useState(mode ? true : false);
   const [refetch, setRefetch] = useState(false);
 
   const [name, setName] = useState("");

@@ -16,7 +16,7 @@ function SideBar() {
           </Link>
         </li>
         <li className="p-4 border-b-2 border-gray-100 font-medium  tracking-wider text-gray-500 uppercase bg-gray-50 ">
-          <Link href="/admin/blog/create">
+          <Link href="/admin/blogs">
             <a>Manage Blog</a>
           </Link>
         </li>

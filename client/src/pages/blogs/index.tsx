@@ -1,26 +1,26 @@
 import { GetStaticProps } from "next";
 import Head from "next/head";
 import React from "react";
+import axios from "../../actions/axios";
 import { getBlogsWithCategoriesAndTags } from "../../actions/blog";
-import BlogList from "../../components/admin/Blog/BlogsList";
-import NavBar from "../../components/NavBar";
-function Blogs(data) {
+import BlogList from "../../components/user/Blog/BlogsList";
+import BaseLayout from "../../components/Layout/BaseLayout";
+import NavBar from "../../components/NavBar/NavBar";
+import { IBlog } from "../../utils/interfaces";
+function Blogs({data}) {
   return (
-    <div>
-      <Head>Blogs Page</Head>
-
-      <NavBar />
+    <BaseLayout>
       <BlogList  {...data} />
-    </div>
+    </BaseLayout>
   );
 }
 
-export const getServerSideProps = async (context: any) => {
-    // console.log(, ' is context ')
-    const data = await getBlogsWithCategoriesAndTags(context);
+export async function getServerSideProps(context) {
+  // console.log(context, ' is context ')
+    const data:IBlog[] = await getBlogsWithCategoriesAndTags(context);
     return {
       props: {
-        ...data
+        data
       }
     }
   }

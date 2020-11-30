@@ -3,15 +3,16 @@ import { useState } from "react";
 import Link from "next/link";
 
 import classnames from "classnames";
-import { isAuthenticated, signOut } from "../actions/auth";
+import { isAuthenticated, signOut } from "../../actions/auth";
 import { useRouter } from "next/router";
-import { useAuth } from "../context/auth";
+import { useAuth } from "../../context/auth";
 
 function NavBar() {
   const { user } = useAuth();
   const [dark, setDark] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
+  
   useEffect(() => {
     if (dark === null) {
       setDark(localStorage.theme === "dark" ? true : false);
@@ -106,7 +107,7 @@ function NavBar() {
                     </a>
                   </Link>
                 )}
-                <Link href="">
+                <Link href="/blogs">
                   <a className="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-700">
                     Contact
                   </a>
@@ -170,7 +171,7 @@ function NavBar() {
                     aria-orientation="vertical"
                     aria-labelledby="user-menu"
                   >
-                    <Link href="">
+                    <Link href="/blogs">
                       <a
                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                         role="menuitem"
@@ -178,7 +179,7 @@ function NavBar() {
                         Your Profile
                       </a>
                     </Link>
-                    <Link href="">
+                    <Link href="/blogs">
                       <a
                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                         role="menuitem"
@@ -186,7 +187,7 @@ function NavBar() {
                         Settings
                       </a>
                     </Link>
-                    <Link href="">
+                    <Link href="/blogs">
                       <a
                         onClick={handleSignOut}
                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
@@ -209,17 +210,17 @@ function NavBar() {
               Blog
             </a>
           </Link>
-          <Link href="">
+          <Link href="/blogs">
             <a className="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700">
               Contact
             </a>
           </Link>
-          <Link href="">
+          <Link href="/blogs">
             <a className="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700">
               Sign In
             </a>
           </Link>
-          <Link href="">
+          <Link href="/blogs">
             <a className="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700">
               Sign Out
             </a>

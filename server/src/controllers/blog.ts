@@ -124,7 +124,7 @@ export const updateBlog = async (req: any, res: Response) => {
   if (!tags || !tags.length) {
     return res.status(400).json({ error: "At least one Tag is Required" });
   }
-
+  console.log('update data is ', title, body, categories, tags)
   try {
     categories = categories.split(",");
     tags = tags.split(",");
@@ -178,7 +178,7 @@ export const deleteBlog = async (req: Request, res: Response) => {
 };
 
 export const loadMoreBlogs = async (req: Request, res: Response) => {
-  const skip = req.body.skip ? req.body.skip : 10;
+  const skip = req.body.skip ? req.body.skip : 0;
   const limit = req.body.limit ? req.body.limit : 10;
   try {
     const [blogs, categories, tags] = await Promise.all([
@@ -198,19 +198,60 @@ export const loadMoreBlogs = async (req: Request, res: Response) => {
           },
         ])
         .lean()
-        .limit(limit) 
+        .limit(limit)
         .skip(skip)
-        .sort({"createdAt": "DESC"})
-        // .sort({'createdAt':'DESC'})
-        ,
+        .sort({ createdAt: "DESC" }),
+      // .sort({'createdAt':'DESC'})
       Category.find(),
       Tag.find(),
     ]);
-    return res.status(200).json({blogs, categories, tags, size: blogs.length});
+    return res
+      .status(200)
+      .json({ blogs, categories, tags, size: blogs.length });
   } catch (error) {
     res.json(errorHandler(errorHandler));
   }
 };
+
+export const getRelatedBlogs = async (req: Request, res: Response) => {
+  const slug = req.params.slug;
+  const limit = req.params.limit ? parseInt(req.params.limit) : 4;
+  try {
+    await Blog.findOne({ slug: slug }).exec(async (err, blog) => {
+      if (err && !blog) {
+        return res.status(404).json(err);
+      }
+      const blogs = await Blog.find({
+        _id: { $ne: blog?._id },
+        $and: [
+          { categories: { $in: blog?.categories } },
+          { tags: { $in: blog?.tags } },
+        ],
+      })
+        .populate([
+          {
+            path: "categories",
+            select: "_id name slug ",
+          },
+          {
+            path: "tags",
+            select: "_id name slug ",
+          },
+          {
+            path: "posted_by",
+            select: "_id name ",
+          },
+        ])
+        .limit(limit)
+        .lean();
+
+      return res.status(200).json(blogs);
+    });
+  } catch (error) {
+    res.json(errorHandler(errorHandler));
+  }
+};
+
 // const host = req.url;
 // console.log(req.file.originalname)
 // console.log(req.file.fieldname)

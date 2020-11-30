@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { isAuthenticated } from "../actions/auth";
 import SignIn from "../components/auth/SignInComponent";
-import NavBar from "../components/NavBar";
+import NavBar from "../components/NavBar/NavBar";
 import Router from "next/router";
 import { useAuth } from "../context/auth";
 

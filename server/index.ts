@@ -24,7 +24,7 @@ app.use(cookieParser());
 const path_name:string = path.join(__dirname, './public');
 console.log(path_name);
 app.use(express.static(path_name))
-app.use('/_next', express.static(path.join(__dirname, '../.next')))
+// app.use('/_next', express.static(path.join(__dirname, '../.next')))
 
 
 
