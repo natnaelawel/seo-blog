@@ -1,5 +1,6 @@
 import axios from "./axios";
 import cookie from "js-cookie";
+import querystring from "query-string"
 // import { getCookieParser } from "next/dist/next-server/server/api-utils";
 
 export const createBlog = async (
@@ -45,6 +46,18 @@ export const getBlogs = async ()=>{
     return data;
   } catch (error) {return error.response.data}
 }
+
+export const getSearchResult = async (searchQuery)=>{
+  console.log('searchQuery i s', searchQuery)
+  const search_query = querystring.stringify(searchQuery)
+  try {
+    const {data} = await axios.get(`blogs/search?${search_query}`)
+    return data;
+  } catch (error) {
+    return error.response.data
+  }
+}
+
 export const getBlog = async (slug:String)=>{
   try {
     const {data} = await axios.get('blogs/'+ slug)

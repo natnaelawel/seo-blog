@@ -1,14 +1,14 @@
 import Head from "next/head";
 import BaseLayout from "../components/Layout/BaseLayout";
+import Home from "../components/Home";
 
-export default function Home() {
-
+export default function HomePage() {
   return (
     <BaseLayout>
       <Head>
         <title>Home</title>
       </Head>
-      <h1 className="dark:text-white text-yellow-500">Hello world</h1>
+      <Home />
     </BaseLayout>
   );
 }

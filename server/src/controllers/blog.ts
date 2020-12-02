@@ -6,7 +6,7 @@ import _, { sortBy } from "lodash";
 import stripHtml from "string-strip-html";
 import slugify from "slugify";
 import { errorHandler } from "../exception/mongodb";
-import tag from "../models/tag";
+import { mongo } from "mongoose";
 
 // import multer from "multer";
 // const upload = multer({ dest: "src/uploads/" });
@@ -124,7 +124,7 @@ export const updateBlog = async (req: any, res: Response) => {
   if (!tags || !tags.length) {
     return res.status(400).json({ error: "At least one Tag is Required" });
   }
-  console.log('update data is ', title, body, categories, tags)
+  console.log("update data is ", title, body, categories, tags);
   try {
     categories = categories.split(",");
     tags = tags.split(",");
@@ -251,9 +251,58 @@ export const getRelatedBlogs = async (req: Request, res: Response) => {
     res.json(errorHandler(errorHandler));
   }
 };
+import querystring from "querystring";
 
+export const getBlogSearchResult = async (req: Request, res: Response) => {
+  const query: any = {};
+  // const searchQuery = querystring.parse(req.query.search_query?.toString(), '&')
+  // console.log(req.query, ' is query')
+  if (req.query.search_query) {
+    query.title = { $regex: req.query.search_query.toString().trim(), $options: "i" };
+    await Blog.find({ $or: [{title: query.title},{body: query.title}] }, (err, blogs) => {
+      if (err) {
+        return res.status(400).json({
+          message: "No Result",
+        });
+      }
+      // const blogs = [...datas.forEach(product => product.photo = undefined)]
+      return res.json(blogs);
+    })
+    // .select('body');
+  }
+};
+
+// export const getBlogSearchResult = async (req: Request, res: Response) => {
+//   const search = req.query || "all";
+//   console.log(search, 'is result')
+//   Blog.aggregate({$match: {title: ""}})
+//   // let title;
+//   if (search) {
+//     // var search = 'Joe';
+// // Blog.
+// //     find({
+// //       $text: {
+// //         $search: search
+// //       }
+// //     })
+// // find({title: new RegExp(search.t, 'i')})
+//     // console.log(search, ' is search data')
+//     // title = { $regex: search.toString(), $options: "i" };
+//     // const regExp = new RegExp(search.toString(), "i");
+//     // Blog.find({"title": {$regex: /.*abc./, $options:"i"}})
+//     // await Blog.find({$or: [
+//     //   {title},
+//     //   {}
+//     // ]}).exec((err, blogs)=>{
+//     //   if(err){
+//     //     res.json(err)
+//     //   }
+//     //   return res.status(200).json(blogs)
+//     // })
+//   }
+// };
 // const host = req.url;
-// console.log(req.file.originalname)
+// console.log(req.file.originaltitle)
 // console.log(req.file.fieldname)
 // console.log(req.file.mimetype)
 // console.log(JSON.stringify(req.file))

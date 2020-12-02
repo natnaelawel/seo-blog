@@ -28,9 +28,9 @@ function SingleBlog({ blog }: ISingleBlogType) {
       </div>
       <div className="px-10">
         <div className="flex relative">
-          <div className="w-3/4  px-6 text-2xl">
+          <div className="w-3/4 overflow-auto px-6 text-2xl">
             <h1 className="text-5xl font-bold p-10">{blog.title}</h1>
-            <div className="p-5 text-lg font-bold">
+            <div className="p-5 text-lg font-bold bg-yellow-100">
               Written by {blog.posted_by.name}| published{" "}
               {moment(blog.updatedAt).fromNow()}
             </div>

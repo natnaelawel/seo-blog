@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { errorHandler } from "../exception/mongodb";
+import Blog, { IBlog } from "../models/blog";
 import Tag from "../models/tag";
 
 export const getTag = async (req: Request, res: Response) => {
@@ -26,6 +27,26 @@ export const getTags = async (_req: Request, res: Response) => {
         });
       }
       res.status(200).json(tags);
+    });
+  } catch (error) {}
+};
+
+export const getTagBlogs = async (req: Request, res: Response) => {
+  const slug = req.params.slug;
+  try {
+    await Tag.findOne({ slug: slug }).exec(async (err, tag) => {
+      if (err && !tag) {
+        res.status(404).json(err);
+      }
+      const blogs: IBlog[] = await Blog.find({
+        tags: tag?._id,
+      }).populate([
+        { path: "categories", select: "_id name slug " },
+        { path: "tags", select: "_id name slug " },
+      ])
+      // .select('-body');
+      
+      return res.status(200).json({ tag, blogs });
     });
   } catch (error) {}
 };

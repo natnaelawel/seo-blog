@@ -6,8 +6,10 @@ import {
   deleteBlog,
   updateBlog,
   loadMoreBlogs,
-  getRelatedBlogs
+  getRelatedBlogs,
+  getBlogSearchResult
 } from "../controllers/blog";
+
 import {
   adminMiddleware,
   authMiddleware,
@@ -19,6 +21,7 @@ import { createBlogValidator } from "../validators/blog";
 
 const router = express.Router();
 
+router.get("/search", getBlogSearchResult);
 router.get("/:slug", getBlog);
 
 router.get("/", getBlogs);

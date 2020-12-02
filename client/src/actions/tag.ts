@@ -22,6 +22,18 @@ export const getTags = async () => {
   }
 };
 
+export const getTagBlogs = async (slug: String) => {
+  try {
+    const { data } = await axios.get(`/tags/${slug}/blogs`);
+    if (data) {
+      return data;
+    }
+  } catch (error) {
+    return { error };
+  }
+};
+
+
 export const createTag = async (name: String) => {
   try {
     const { data } = await axios.post("/tags", { name });

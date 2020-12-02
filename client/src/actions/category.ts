@@ -22,6 +22,17 @@ export const getCategories = async () => {
   }
 };
 
+export const getCategoryBlogs = async (slug: String) => {
+  try {
+    const { data } = await axios.get(`/categories/${slug}/blogs`);
+    if (data) {
+      return data;
+    }
+  } catch (error) {
+    return { error };
+  }
+};
+
 export const createCategory = async (name: String) => {
   try {
     const { data } = await axios.post("/categories", { name });
